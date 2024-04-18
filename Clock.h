@@ -1,36 +1,35 @@
 /*
- * *****************************************************************
- * *                                                               *
- * *    Copyright (c) Digital Equipment Corporation, 1991, 1994    *
- * *                                                               *
- * *   All Rights Reserved.  Unpublished rights  reserved  under   *
- * *   the copyright laws of the United States.                    *
- * *                                                               *
- * *   The software contained on this media  is  proprietary  to   *
- * *   and  embodies  the  confidential  technology  of  Digital   *
- * *   Equipment Corporation.  Possession, use,  duplication  or   *
- * *   dissemination of the software and media is authorized only  *
- * *   pursuant to a valid written license from Digital Equipment  *
- * *   Corporation.                                                *
- * *                                                               *
- * *   RESTRICTED RIGHTS LEGEND   Use, duplication, or disclosure  *
- * *   by the U.S. Government is subject to restrictions  as  set  *
- * *   forth in Subparagraph (c)(1)(ii)  of  DFARS  252.227-7013,  *
- * *   or  in  FAR 52.227-19, as applicable.                       *
- * *                                                               *
- * *****************************************************************
- */
-/*
- * HISTORY
- */
-/*
-* $XConsortium: Clock.h,v 1.29 90/10/22 14:43:12 converse Exp $
+* $XConsortium: Clock.h,v 1.30 94/04/17 20:23:51 converse Exp $
 */
 
 
 /***********************************************************
-Copyright 1987, 1988 by Digital Equipment Corporation, Maynard, Massachusetts,
-and the Massachusetts Institute of Technology, Cambridge, Massachusetts.
+
+Copyright (c) 1987, 1988  X Consortium
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name of the X Consortium shall not be
+used in advertising or otherwise to promote the sale, use or other dealings
+in this Software without prior written authorization from the X Consortium.
+
+
+Copyright 1987, 1988 by Digital Equipment Corporation, Maynard, Massachusetts.
 
                         All Rights Reserved
 
@@ -38,7 +37,7 @@ Permission to use, copy, modify, and distribute this software and its
 documentation for any purpose and without fee is hereby granted, 
 provided that the above copyright notice appear in all copies and that
 both that copyright notice and this permission notice appear in 
-supporting documentation, and that the names of Digital or MIT not be
+supporting documentation, and that the name of Digital not be
 used in advertising or publicity pertaining to distribution of the
 software without specific, written prior permission.  
 
@@ -68,8 +67,12 @@ SOFTWARE.
  Name		     Class		RepType		Default Value
  ----		     -----		-------		-------------
  analog		     Boolean		Boolean		True
- roman		     Boolean		Boolean		True
- north		     Boolean		Boolean		False
+
+Following lines added by Andreas Franzen using source code by
+Jaime Garcia Ghirelli:
+ roman               Boolean            Boolean         True
+ north               Boolean            Boolean         False
+
  background	     Background		Pixel		white
  backingStore	     BackingStore	BackingStore	default
  border		     BorderColor	Pixel		Black
@@ -95,12 +98,14 @@ SOFTWARE.
 		/* color of hands */
 #define XtNhand "hands"
 
+
 		/* Boolean: digital if FALSE */
 #define XtNanalog "analog"
 
+/* Following lines added by Andreas Franzen using source code by
+ * Jaime Garcia Ghirelli: */
 		/* Boolean: arabic if FALSE */
 #define XtNroman "roman"
-
 		/* Boolean: clockwise if FALSE */
 #define XtNnorth "north"
 
