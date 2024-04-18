@@ -30,13 +30,13 @@ Copyright 1987, 1988 by Digital Equipment Corporation, Maynard, Massachusetts.
 
                         All Rights Reserved
 
-Permission to use, copy, modify, and distribute this software and its 
-documentation for any purpose and without fee is hereby granted, 
+Permission to use, copy, modify, and distribute this software and its
+documentation for any purpose and without fee is hereby granted,
 provided that the above copyright notice appear in all copies and that
-both that copyright notice and this permission notice appear in 
+both that copyright notice and this permission notice appear in
 supporting documentation, and that the name of Digital not be
 used in advertising or publicity pertaining to distribution of the
-software without specific, written prior permission.  
+software without specific, written prior permission.
 
 DIGITAL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
 ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL
@@ -77,7 +77,7 @@ extern double round();
 static void clock_tic(), DrawHand(), DrawSecond(), SetSeg(), DrawClockFace();
 static void erase_hands();
 static int iround(double x);
-	
+
 /* Private Definitions */
 
 #define VERTICES_IN_HANDS	6	/* to draw triangle */
@@ -112,7 +112,7 @@ static XtResource resources[] = {
 	goffset(width), XtRImmediate, (XtPointer) 0},
     {XtNheight, XtCHeight, XtRDimension, sizeof(Dimension),
 	goffset(height), XtRImmediate, (XtPointer) 0},
-    {XtNupdate, XtCInterval, XtRInt, sizeof(int), 
+    {XtNupdate, XtCInterval, XtRInt, sizeof(int),
         offset(update), XtRImmediate, (XtPointer) 60 },
     {XtNforeground, XtCForeground, XtRPixel, sizeof(Pixel),
         offset(fgpixel), XtRString, XtDefaultForeground},
@@ -122,14 +122,14 @@ static XtResource resources[] = {
         offset(Hipixel), XtRString, XtDefaultForeground},
     {XtNanalog, XtCBoolean, XtRBoolean, sizeof(Boolean),
         offset(analog), XtRImmediate, (XtPointer) TRUE},
-        
+
 /* Following lines added by Andreas Franzen using source code by
  * Jaime Garcia Ghirelli: */
     {XtNroman, XtCBoolean, XtRBoolean, sizeof(Boolean),
         offset(roman), XtRImmediate, (XtPointer) FALSE},
     {XtNnorth, XtCBoolean, XtRBoolean, sizeof(Boolean),
         offset(north), XtRImmediate, (XtPointer) FALSE},
-        
+
     {XtNchime, XtCBoolean, XtRBoolean, sizeof(Boolean),
 	offset(chime), XtRImmediate, (XtPointer) FALSE },
     {XtNpadding, XtCMargin, XtRInt, sizeof(int),
@@ -312,7 +312,7 @@ static void Destroy (gw)
      XtReleaseGC (gw, w->clock.EraseGC);
 }
 
-static void Resize (gw) 
+static void Resize (gw)
     Widget gw;
 {
     ClockWidget w = (ClockWidget) gw;
@@ -359,8 +359,8 @@ static void clock_tic(client_data, id)
         XtPointer client_data;
         XtIntervalId *id;
 {
-        ClockWidget w = (ClockWidget)client_data;    
-	struct tm tm; 
+        ClockWidget w = (ClockWidget)client_data;
+	struct tm tm;
 	Time_t	time_value;
 	char	*time_ptr;
         register Display *dpy = XtDisplay(w);
@@ -394,7 +394,7 @@ static void clock_tic(client_data, id)
 	    if (w->clock.beeped && (tm.tm_min != 30) &&
 		(tm.tm_min != 0))
 	      w->clock.beeped = FALSE;
-	    if (((tm.tm_min == 30) || (tm.tm_min == 0)) 
+	    if (((tm.tm_min == 30) || (tm.tm_min == 0))
 		&& (!w->clock.beeped)) {
 		w->clock.beeped = TRUE;
 #ifdef XKB
@@ -406,7 +406,7 @@ static void clock_tic(client_data, id)
 		    XkbStdBell(dpy,win,50,XkbBI_ClockChimeHalf);
 		}
 #else
-		XBell(dpy, 50);	
+		XBell(dpy, 50);
 		if (tm.tm_min == 0)
 		  XBell(dpy, 50);
 #endif
@@ -420,7 +420,7 @@ static void clock_tic(client_data, id)
 	    len = strlen (time_ptr);
 	    if (time_ptr[len - 1] == '\n') time_ptr[--len] = '\0';
 	    prev_len = strlen (w->clock.prev_time_string);
-	    for (i = 0; ((i < len) && (i < prev_len) && 
+	    for (i = 0; ((i < len) && (i < prev_len) &&
 	    		 (w->clock.prev_time_string[i] == time_ptr[i])); i++);
 	    strcpy (w->clock.prev_time_string+i, time_ptr+i);
 
@@ -439,7 +439,7 @@ static void clock_tic(client_data, id)
 		    clear_from, 0, w->core.width - clear_from, w->core.height);
 	} else {
 			/*
-			 * The second (or minute) hand is sec (or min) 
+			 * The second (or minute) hand is sec (or min)
 			 * sixtieths around the clock face. The hour hand is
 			 * (hour + min/60) twelfths of the way around the
 			 * clock-face.  The derivation is left as an excercise
@@ -459,7 +459,7 @@ static void clock_tic(client_data, id)
 			tm.tm_hour != w->clock.otm.tm_hour) {
 			    w->clock.segbuffptr = w->clock.segbuff;
 			    w->clock.numseg = 0;
-			    
+
 /* Following lines added by Andreas Franzen using source code by
  * Jaime Garcia Ghirelli: */
       /*
@@ -467,7 +467,7 @@ static void clock_tic(client_data, id)
        */
       for (i = 0; i < 12; i++) {
 	if (w->clock.north == FALSE) j = i;
-	else j = i + 12;	
+	else j = i + 12;
 	angle = i * PI / 6;
 	x = w->clock.text_position_radius * cos(angle);
 	y = w->clock.text_position_radius * sin(angle);
@@ -489,7 +489,7 @@ static void clock_tic(client_data, id)
 			 arabic_roman_numbers[j],
 			 strlen(arabic_roman_numbers[j]));
       }
-			    
+
 			    /*
 			     * Calculate the hour hand, fill it in with its
 			     * color and then outline it.  Next, do the same
@@ -511,7 +511,7 @@ static void clock_tic(client_data, id)
 				w->clock.segbuff, VERTICES_IN_HANDS,
 				       CoordModeOrigin);
 			    w->clock.hour = w->clock.segbuffptr;
-			    DrawHand(w, 
+			    DrawHand(w,
 				w->clock.hour_hand_length, w->clock.hand_width,
 				tm.tm_hour * 60 + tm.tm_min
 			    );
@@ -533,7 +533,7 @@ static void clock_tic(client_data, id)
 		    if (w->clock.show_second_hand == TRUE) {
 			    w->clock.segbuffptr = w->clock.sec;
 			    DrawSecond(w,
-				w->clock.second_hand_length - 2, 
+				w->clock.second_hand_length - 2,
 				w->clock.second_hand_width,
 				w->clock.minute_hand_length + 2,
 				tm.tm_sec * 12
@@ -556,7 +556,7 @@ static void clock_tic(client_data, id)
 			w->clock.otm = tm;
 		}
 }
-	
+
 static void erase_hands (w, tm)
 ClockWidget	w;
 struct tm	*tm;
@@ -765,11 +765,11 @@ int tick_units;
 	SetSeg(w,
 	       x = w->clock.centerX + iround(length * sinangle),
 	       y = w->clock.centerY - iround(length * cosangle),
-	       x1 = w->clock.centerX - iround(ws + wc), 
+	       x1 = w->clock.centerX - iround(ws + wc),
 	       y1 = w->clock.centerY + iround(wc - ws));  /* 1 ---- 2 */
 	/* 2 */
-	SetSeg(w, x1, y1, 
-	       x2 = w->clock.centerX - iround(ws - wc), 
+	SetSeg(w, x1, y1,
+	       x2 = w->clock.centerX - iround(ws - wc),
 	       y2 = w->clock.centerY + iround(wc + ws));  /* 2 ----- 3 */
 
 	SetSeg(w, x2, y2, x, y);	/* 3 ----- 1(4) */
@@ -846,7 +846,7 @@ int tick_units;
 	       w->clock.centerY - iround(mc + ws) );
 	SetSeg(w, w->clock.centerX + iround(offset *sinangle),
 	       w->clock.centerY - iround(offset * cosangle), /* 2-----3 */
-	       w->clock.centerX + iround(ms + wc), 
+	       w->clock.centerX + iround(ms + wc),
 	       w->clock.centerY - iround(mc - ws));
 	w->clock.segbuffptr->x = x;
 	w->clock.segbuffptr++->y = y;
@@ -873,11 +873,11 @@ ClockWidget w;
 {
 	register int i;
 	register int delta = (int)(w->clock.radius - w->clock.second_hand_length) / 3;
-	
+
 	w->clock.segbuffptr = w->clock.segbuff;
 	w->clock.numseg = 0;
 	for (i = 0; i < 60; i++)
-		DrawLine(w, ( (i % 5) == 0 ? 
+		DrawLine(w, ( (i % 5) == 0 ?
 			     w->clock.second_hand_length :
 			     (w->clock.radius - delta) ),
 			 w->clock.radius, i * 12);
@@ -887,7 +887,7 @@ ClockWidget w;
 	XDrawSegments(XtDisplay(w), XtWindow(w),
 		      w->clock.myGC, (XSegment *) &(w->clock.segbuff[0]),
 		      w->clock.numseg/2);
-	
+
 	w->clock.segbuffptr = w->clock.segbuff;
 	w->clock.numseg = 0;
 }
@@ -911,7 +911,7 @@ static Boolean SetValues (gcurrent, grequest, gnew, args, num_args)
 	  if (current->clock.interval_id)
 	      XtRemoveTimeOut (current->clock.interval_id);
 	  if (XtIsRealized( (Widget) new))
-	      new->clock.interval_id = XtAppAddTimeOut( 
+	      new->clock.interval_id = XtAppAddTimeOut(
                                          XtWidgetToApplicationContext(gnew),
 					 new->clock.update*1000,
 				         clock_tic, (XtPointer)gnew);
@@ -966,7 +966,7 @@ static Boolean SetValues (gcurrent, grequest, gnew, args, num_args)
 	  new->clock.EraseGC = XtGetGC((Widget)gcurrent, valuemask, &myXGCV);
 	  redisplay = TRUE;
 	  }
-     
+
      return (redisplay);
 
 }

@@ -160,14 +160,14 @@ int main(argc, argv)
     if (argc != 1) Syntax(argv[0]);
     XtAddCallback(toplevel, XtNdieCallback, die, NULL);
     XtAddCallback(toplevel, XtNsaveCallback, save, NULL);
-    
+
     XtAppAddActions (app_con, xclock_actions, XtNumber(xclock_actions));
 
     /*
      * This is a hack so that wm_delete_window will do something useful
      * in this single-window application.
      */
-    XtOverrideTranslations(toplevel, 
+    XtOverrideTranslations(toplevel,
 		    XtParseTranslationTable ("<Message>WM_PROTOCOLS: quit()"));
 
     XtSetArg(arg, XtNiconPixmap, &icon_pixmap);
@@ -183,7 +183,7 @@ int main(argc, argv)
     if (icon_pixmap == None) {
 	arg.value = (XtArgVal)XCreateBitmapFromData(XtDisplay(toplevel),
 				       XtScreen(toplevel)->root,
-				       (char *)clock_mask_bits, clock_mask_width, 
+				       (char *)clock_mask_bits, clock_mask_width,
 				       clock_mask_height);
 	XtSetValues (toplevel, &arg, ONE);
     }
