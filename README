@@ -14,7 +14,7 @@ Purpose:        If clocks had been invented in Argentina (southern hemisphere),
 		the Massachusetts Institute of Technology.
 
 		Usage: xarclock
-		[-roman] [-arabic] [-south] [-north]
+		[-roman] [-arabic] [-hebrew] [-south] [-north]
 		[-analog] [-digital] [-bw <pixels>]
 		[-fg <color>] [-bg <color>] [-hd <color>]
 		[-hl <color>] [-bd <color>]
